@@ -418,6 +418,20 @@ then
   	dump "ERROR: Could not perform boostrap! See $TMPLOG for more info."
   	exit 1
   fi
+
+  case "$HOST_OS" in
+    windows)
+        ;;
+    *)  # Linux and others
+        if [ ! -f ./bjam ] ; then
+            if [ ! -f ./b2 ] ; then
+                dump "ERROR: Could not perform boostrap! See $TMPLOG for more info."
+                exit 1
+            fi
+            cp ./b2 ./bjam
+        fi
+  esac
+
   cd $PROGDIR
   
   # -------------------------------------------------------------
