@@ -1,6 +1,6 @@
 diff -urN boost_1_71_0.orig/boost/asio/detail/config.hpp boost_1_71_0/boost/asio/detail/config.hpp
 --- boost_1_71_0.orig/boost/asio/detail/config.hpp	2019-08-14 14:02:17.000000000 +0200
-+++ boost_1_71_0/boost/asio/detail/config.hpp	2019-09-20 13:39:00.402019592 +0200
++++ boost_1_71_0/boost/asio/detail/config.hpp	2019-10-31 12:51:39.312357932 +0100
 @@ -825,7 +825,11 @@
  #    if (_LIBCPP_VERSION < 7000)
  #     if (__cplusplus >= 201402)
@@ -16,7 +16,7 @@ diff -urN boost_1_71_0.orig/boost/asio/detail/config.hpp boost_1_71_0/boost/asio
  #    endif // (_LIBCPP_VERSION < 7000)
 diff -urN boost_1_71_0.orig/boost/config/user.hpp boost_1_71_0/boost/config/user.hpp
 --- boost_1_71_0.orig/boost/config/user.hpp	2019-08-14 14:02:23.000000000 +0200
-+++ boost_1_71_0/boost/config/user.hpp	2019-09-20 13:39:00.402019592 +0200
++++ boost_1_71_0/boost/config/user.hpp	2019-10-31 12:51:39.312357932 +0100
 @@ -13,6 +13,12 @@
  //  configuration policy:
  //
@@ -32,7 +32,7 @@ diff -urN boost_1_71_0.orig/boost/config/user.hpp boost_1_71_0/boost/config/user
  
 diff -urN boost_1_71_0.orig/boost/system/error_code.hpp boost_1_71_0/boost/system/error_code.hpp
 --- boost_1_71_0.orig/boost/system/error_code.hpp	2019-08-14 14:03:36.000000000 +0200
-+++ boost_1_71_0/boost/system/error_code.hpp	2019-09-20 13:39:00.402019592 +0200
++++ boost_1_71_0/boost/system/error_code.hpp	2019-10-31 12:51:39.312357932 +0100
 @@ -14,6 +14,7 @@
  #include <boost/system/detail/config.hpp>
  #include <boost/cstdint.hpp>
@@ -43,7 +43,7 @@ diff -urN boost_1_71_0.orig/boost/system/error_code.hpp boost_1_71_0/boost/syste
  #include <functional>
 diff -urN boost_1_71_0.orig/libs/filesystem/src/operations.cpp boost_1_71_0/libs/filesystem/src/operations.cpp
 --- boost_1_71_0.orig/libs/filesystem/src/operations.cpp	2019-08-14 14:02:31.000000000 +0200
-+++ boost_1_71_0/libs/filesystem/src/operations.cpp	2019-09-20 13:39:00.402019592 +0200
++++ boost_1_71_0/libs/filesystem/src/operations.cpp	2019-10-31 12:51:39.316357932 +0100
 @@ -236,6 +236,21 @@
  
  # if defined(BOOST_POSIX_API)
@@ -66,9 +66,32 @@ diff -urN boost_1_71_0.orig/libs/filesystem/src/operations.cpp boost_1_71_0/libs
  typedef int err_t;
  
  //  POSIX uses a 0 return to indicate success
+diff -urN boost_1_71_0.orig/libs/filesystem/src/path.cpp boost_1_71_0/libs/filesystem/src/path.cpp
+--- boost_1_71_0.orig/libs/filesystem/src/path.cpp	2019-08-14 14:02:31.000000000 +0200
++++ boost_1_71_0/libs/filesystem/src/path.cpp	2019-10-31 12:54:13.032357932 +0100
+@@ -38,7 +38,8 @@
+ # include "windows_file_codecvt.hpp"
+ # include <windows.h>
+ #elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__) \
+- || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
++ || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) \
++ || defined(__ANDROID__)
+ # include <boost/filesystem/detail/utf8_codecvt_facet.hpp>
+ #endif
+ 
+@@ -856,7 +857,8 @@
+     std::locale global_loc = std::locale();
+     return std::locale(global_loc, new windows_file_codecvt);
+ # elif defined(macintosh) || defined(__APPLE__) || defined(__APPLE_CC__) \
+-  || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__)
++  || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__HAIKU__) \
++  || defined(__ANDROID__)
+     // "All BSD system functions expect their string parameters to be in UTF-8 encoding
+     // and nothing else." See
+     // http://developer.apple.com/mac/library/documentation/MacOSX/Conceptual/BPInternational/Articles/FileEncodings.html
 diff -urN boost_1_71_0.orig/tools/build/src/tools/common.jam boost_1_71_0/tools/build/src/tools/common.jam
 --- boost_1_71_0.orig/tools/build/src/tools/common.jam	2019-08-14 14:03:50.000000000 +0200
-+++ boost_1_71_0/tools/build/src/tools/common.jam	2019-09-20 13:39:00.406019592 +0200
++++ boost_1_71_0/tools/build/src/tools/common.jam	2019-10-31 12:51:39.316357932 +0100
 @@ -980,10 +980,10 @@
      }
  
