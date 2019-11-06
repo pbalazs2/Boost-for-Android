@@ -185,7 +185,10 @@ echo "Building boost version: $BOOST_VER1.$BOOST_VER2.$BOOST_VER3"
 # Build constants
 # -----------------------
 
-function version_ge() { test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$1"; }
+version_ge()
+{
+    test "$(echo "$@" | tr " " "\n" | sort -rV | head -n 1)" == "$1";
+}
 
 if version_ge "$BOOST_VER1.$BOOST_VER2.$BOOST_VER3" "1.63.0"; then
     BOOST_DOWNLOAD_LINK="https://dl.bintray.com/boostorg/release/$BOOST_VER1.$BOOST_VER2.$BOOST_VER3/source/boost_${BOOST_VER1}_${BOOST_VER2}_${BOOST_VER3}.tar.bz2"
