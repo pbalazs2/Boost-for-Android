@@ -1,0 +1,11 @@
+diff -urN boost_1_61_0.orig/boost/uuid/seed_rng.hpp boost_1_61_0/boost/uuid/seed_rng.hpp
+--- boost_1_61_0.orig/boost/uuid/seed_rng.hpp	2016-05-05 23:15:14.000000000 +0200
++++ boost_1_61_0/boost/uuid/seed_rng.hpp	2020-10-21 12:28:09.000000000 +0200
+@@ -219,7 +219,6 @@
+ 
+             const seed_rng* this_ptr = this;
+             sha.process_bytes( (unsigned char const*)&this_ptr, sizeof( this_ptr ) );
+-            sha.process_bytes( (unsigned char const*)&std::rand, sizeof( void(*)() ) );
+         }
+ 
+         sha.process_bytes( (unsigned char const*)rd_, sizeof( rd_ ) );
